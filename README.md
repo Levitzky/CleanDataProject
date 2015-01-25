@@ -1,4 +1,4 @@
-# Getting and Cleaning Data - calss project
+# Getting and Cleaning Data - class project
 
 This script reads train and test files from a wearable database, 
 merges into one big data set the measurment values, the subject data, the activity data
@@ -34,7 +34,7 @@ Using function from the stringr package the script goes through a few steps to m
 BodyBody --> Body;
 Deletes any dot (the unique function used before created the multiple dots);
 
-### replacing first letter with discriptive name: t --> Time, f--> Freq;
+##### replacing first letter with discriptive name: t --> Time, f--> Freq;
 Using the (sub("t", "time",df) function is too risky since it might recognize the letter t in another location of a name and might create a totally unreasonable name. Therefore I frist seperated the 1st letter of each name using substr() function, then replaced the "t" and "f" with sub(), then paste the new name initial that I created with the rest of the name in the original vector with paste0() function.
 
 ## 5 - Create independent tidy data set (tidyds) with the average of each variable for each activity and subject
