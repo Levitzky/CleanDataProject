@@ -16,6 +16,7 @@
 #### 2nd level sub level signals:
 - Jerk: Jerk signals
 - Mag: magnitude of these three-dimensional signals, calculated using the Euclidean norm 
+
 #### Variables that were estimated from the signals
 - mean: Mean value
 - std: Standard deviation
@@ -23,12 +24,12 @@
 denote 3-axial signals in the X, Y and Z directions
 
 ## Activity types
--1 WALKING
--2 WALKING_UPSTAIRS
--3 WALKING_DOWNSTAIRS
--4 SITTING
--5 STANDING
--6 LAYING
+1 WALKING
+2 WALKING_UPSTAIRS
+3 WALKING_DOWNSTAIRS
+4 SITTING
+5 STANDING
+6 LAYING
 
 ## Tidy data set variable names (column names):
  [1] "Subject" - An identifier of the subject (volunteer) who carried out the experiment                          
