@@ -1,5 +1,7 @@
 # Getting and Cleaning Data - calss project
 
+library(dplyr)
+
 ## Read files 
 # train files
 x_train <- read.table("./train/X_train.txt", header=FALSE)
@@ -45,7 +47,6 @@ firstletter<- sub("f","freq",firstletter)
 discriptdfNames<- substr(discriptdfNames,2,nchar(discriptdfNames))
 discriptdfNames<- paste0(firstletter,discriptdfNames)
 names(df)<- discriptdfNames
-names(df) <- sub("f", "", names(df), fixed = TRUE)
 
 ## 5 - Create independent tidy data set with the average 
 ##    of each variable for each activity and subject
