@@ -27,32 +27,16 @@ The select function looks like that:
   select(Subject,Activity,contains("mean"), contains("std"), -contains("meanFreq"))
 
 ## 3 - Use descriptive activity names to name the activities in the data set
-activitylabels <- read.table("./activity_labels.txt", header=FALSE)
-df[,2] <- activitylabels[df[,2], 2]
+Using the activity_labels.txt file it replaces the index activity in the data set with the activity names - each number corresponds to a different activity name in the txt file
 
 ## 4 - Label the data set with descriptive variable names
-library(stringr)
-names(df) <- sub("BodyBody", "Body", names(df), fixed = TRUE)
-names(df) <- gsub(".", "", names(df), fixed = TRUE)
-names(df) <- sub("Mean", "mean", names(df), fixed = TRUE)
+Using function from the stringr package the script goes through a few steps to make create a proper descriptive variable names:
+BodyBody --> Body;
+Deletes any dot (the unique function used before created the multiple dots);
 
-# replacing first letter with discriptive name
-discriptdfNames <- names(df)
-firstletter<- substr(discriptdfNames,1,1)
-firstletter<- sub("t","time",firstletter)
-firstletter<- sub("f","freq",firstletter)
-discriptdfNames<- substr(discriptdfNames,2,nchar(discriptdfNames))
-discriptdfNames<- paste0(firstletter,discriptdfNames)
-names(df)<- discriptdfNames
-names(df) <- sub("f", "", names(df), fixed = TRUE)
+### replacing first letter with discriptive name: t --> Time, f--> Freq;
+Using the (sub("t", "time",df) function is too risky since it might recognize the letter t in another location of a name and might create a totally unreasonable name. Therefore I frist seperated the 1st letter of each name using substr() function, then replaced the "t" and "f" with sub(), then paste the new name initial that I created with the rest of the name in the original vector with paste0() function.
 
-## 5 - Create independent tidy data set with the average 
-##    of each variable for each activity and subject
-tidyds <- df
-meanbygroupds <- tidyds %>% 
-            group_by(Activity,Subject) %>%
-            summarise_each(funs(mean))
-
-## Save tidy data set to txt file
-# write.table(meanbygroupds, file = "ProjectDataSet.txt",row.name=FALSE)
-
+## 5 - Create independent tidy data set (tidyds) with the average of each variable for each activity and subject
+The script first group the new data set by Activity and the by Subject;
+Then it calculatet the mean of each measurement (each column) by these groups using the summarise_each() function
