@@ -10,31 +10,20 @@ and by subject.
 
 To run the script simply save it and submit()
 
-# Read files - measurments (x), acttivity (y), subject (sbj), variable names (features)
-## train files 
-x_train <- read.table("./train/X_train.txt", header=FALSE)
-y_train <- read.table("./train/Y_train.txt", header=FALSE)
-sbj_train <- read.table("./train/subject_train.txt", header=FALSE)
-## test files
-x_test <- read.table("./test/X_test.txt", header=FALSE)
-y_test <- read.table("./test/Y_test.txt", header=FALSE) 
-sbj_test <- read.table("./test/subject_test.txt", header=FALSE)
-## features file (table header)
-features <- read.table("./features.txt", header=FALSE)
+## It starts with read the files for the train and test sets - measurments (x), acttivity (y), subject (sbj), variable names (features)
 
-# Part 1 - Merge the training and the test sets to one data set
-## 1st step - combining test & train columns
-combined_test <-cbind(sbj_test, y_test, x_test)
-combined_train <-cbind(sbj_train, y_train, x_train)
-# 2nd step - combining test & train rows
-cmbntable <-rbind(combined_train, combined_test)
-# 3rd step - Assigning coulmn headers 
-cnames <- as.character(features[,2]) 
-uniqcnames<-make.names(cnames, unique=TRUE)
-names(cmbntable) <- c("Subject", "Activity", uniqcnames)
+## Part 1 - Merge the training and the test sets to one data set
+1st step - combining seperately the test & train columns into combined tables (combined_test, combined_train) 
+            It combines Subject in the 1st column, Activity and then the measurements
+2nd step - combining test & train combined tables into one big table by rows (cmbntable)
+3rd step - Assigning coulmn headers - it subsets column #2 of the feature table to get a vector of the variable original names (cnames)
+Then uses the unique=TRUE feature of the make.names() function to avoid a situation where R views two column names the same given the special characters in the original names (i.e. avoiding the error: found duplicated column name)
+Then it assign the names to the combined table by order c("Subject", "Activity", uniqcnames)
 
-## 2- Extract only mean and stDev for each measurement
-df<-cmbntable %>% 
+## Part 2- Extract only mean and stDev for each measurement
+Using the select function it subsets the big combined table to one (df) that includes the subject and activity columns and only "mean" and "std" measurements.
+I didn't include "meanFreq" as I read it as mean frequency which is different than mean.
+The select function looks like that:
   select(Subject,Activity,contains("mean"), contains("std"), -contains("meanFreq"))
 
 ## 3 - Use descriptive activity names to name the activities in the data set
