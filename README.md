@@ -1,4 +1,4 @@
-Getting and Cleaning Data - calss project
+# Getting and Cleaning Data - calss project
 
 This script reads train and test files from a wearable database, 
 merges into one big data set the measurment values, the subject data, the activity data
@@ -10,20 +10,20 @@ and by subject.
 
 To run the script simply save it and submit()
 
-## Read files - measurments (x), acttivity (y), subject (sbj), variable names (features)
-# train files 
+# Read files - measurments (x), acttivity (y), subject (sbj), variable names (features)
+## train files 
 x_train <- read.table("./train/X_train.txt", header=FALSE)
 y_train <- read.table("./train/Y_train.txt", header=FALSE)
 sbj_train <- read.table("./train/subject_train.txt", header=FALSE)
-# test files
+## test files
 x_test <- read.table("./test/X_test.txt", header=FALSE)
 y_test <- read.table("./test/Y_test.txt", header=FALSE) 
 sbj_test <- read.table("./test/subject_test.txt", header=FALSE)
-#features file (table header)
+## features file (table header)
 features <- read.table("./features.txt", header=FALSE)
 
-## 1 - Merge the training and the test sets to one data set
-# 1st step - combining test & train columns
+# Part 1 - Merge the training and the test sets to one data set
+## 1st step - combining test & train columns
 combined_test <-cbind(sbj_test, y_test, x_test)
 combined_train <-cbind(sbj_train, y_train, x_train)
 # 2nd step - combining test & train rows
